@@ -1,16 +1,16 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import Banner from '@/components/banner'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import Banner from "@/components/banner";
+import Card from "@/components/card";
+import coffeeStores from "../data/coffee-store.json";
 
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const handleOnBannerClick = () =>{
-    console.log("Hi Banner Button")
-  }
+  const handleOnBannerClick = () => {
+    console.log("Hi Banner Button");
+  };
   return (
     <>
       <Head>
@@ -20,11 +20,26 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-       <Banner buttonText='View stores nearby' handleOnClick={handleOnBannerClick}/>
-       <div className={styles.heroImage}>
-       <Image src="/static/hero_img.png" width={700} height={400} />
-       </div>
+        <Banner
+          buttonText="View stores nearby"
+          handleOnClick={handleOnBannerClick}
+        />
+        <div className={styles.heroImage}>
+          <Image src="/static/hero_img.png" width={700} height={400} />
+        </div>
+        <div className={styles.cardLayout}>
+          {coffeeStores.map((coffeeStore) => {
+            return (
+              <Card
+                className={styles.card}
+                name={coffeeStore.name}
+                imgUrl={coffeeStore.imgUrl}
+                href={`/coffee-store/${coffeeStore.id}`}
+              />
+            );
+          })}
+        </div>
       </main>
     </>
-  )
+  );
 }
